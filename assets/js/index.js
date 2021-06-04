@@ -29,25 +29,25 @@ function getUserInfo() {
         //     Authorization: localStorage.getItem('token') || ''
         // },
         success: function(res) {
-            if (res.status !== 0) {
-                return layui.layer.msg("获取用户信息失败");
+                if (res.status !== 0) {
+                    return layui.layer.msg("获取用户信息失败");
+                }
+                // 调用 renderAvatar 渲染用户的头像
+                renderAvatar(res.data)
             }
-            // 调用 renderAvatar 渲染用户的头像
-            renderAvatar(res.data)
-        },
-        // 成功调用success失败调用error，不管成功还是失败都会调用complete
-        complete: function(res) {
-            // console.log("执行了complate回调");
-            // console.log(res);
-            // 在complate回调函数中，可以使用res.responseJSON拿到服务器响应回来的数据
-            if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-                // 1.强制清空token
-                localStorage.removeItem('token');
-                // 2.强制跳转到登陆页面
-                location.href = '/login.html';
-            }
+            // // 成功调用success失败调用error，不管成功还是失败都会调用complete
+            // complete: function(res) {
+            //     // console.log("执行了complate回调");
+            //     // console.log(res);
+            //     // 在complate回调函数中，可以使用res.responseJSON拿到服务器响应回来的数据
+            //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+            //         // 1.强制清空token
+            //         localStorage.removeItem('token');
+            //         // 2.强制跳转到登陆页面
+            //         location.href = '/login.html';
+            //     }
 
-        }
+        // }
     })
 }
 
